@@ -1,0 +1,18 @@
+<resources>
+    <style name="theme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/chosen_option_color</item>
+        <item name="colorOnPrimary">@color/button_text_color</item>
+
+        <!-- Backgrounds -->
+        <item name="android:colorBackground">@color/background_color</item>
+        <item name="colorSurface">@color/second_background_color</item>
+        <item name="colorOnSurface">@color/main_text_color</item>
+
+        <!-- Buttons / other components -->
+        <item name="colorSecondary">@color/chosen_option_color</item>
+        <item name="colorOnSecondary">@color/button_text_color</item>
+        <item name="android:textColorPrimary">@color/main_text_color</item>
+        <item name="android:textColorSecondary">@color/second_text_color</item>
+    </style>
+</resources>

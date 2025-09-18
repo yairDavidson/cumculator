@@ -1,0 +1,12 @@
+<resources>
+    <color name="main_text_color">#FFFFFFFF</color>          <!-- white text -->
+    <color name="second_text_color">#757575</color>        <!-- light gray text -->
+    <color name="background_color">#FF121212</color>         <!-- almost black background -->
+    <color name="second_background_color">#FF1E1E1E</color>  <!-- dark gray background -->
+    <color name="circle_color">#6285B0</color>               <!-- muted blue -->
+    <color name="button_text_color">#FFFFFFFF</color>        <!-- white text -->
+    <color name="buttons_color">#FF2C2C2C</color>           <!-- dark button background -->
+    <color name="chosen_option_color">#FF1565C0</color>      <!-- blue accent -->
+    <color name="outline">#33FFFFFF</color>                  <!-- translucent white -->
+    <color name="icons">#FFCCCCCC</color>
+</resources>

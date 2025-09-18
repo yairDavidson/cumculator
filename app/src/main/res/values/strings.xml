@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Cumculator</string>
+    <string name="set_start_time">Set Start Time</string>
+    <string name="now">reset</string>
+    <string name="reset_confirmation_title">Reset to Current Time?</string>
+    <string name="reset_confirmation_message">This will set the timer to start counting from now.</string>
+    <string name="yes">YES</string>
+    <string name="cancel">CANCEL</string>
+    <string name="open_settings">Open Settings</string>
+</resources>
