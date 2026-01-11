@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cumculator"
-    compileSdk = 34
+    namespace = "com.cumculator"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.cumculator"
+        applicationId = "com.cumculator"
         minSdk = 24
         targetSdk = 34
         versionCode = 8
-        versionName = "1.8"
+        versionName = "1.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
