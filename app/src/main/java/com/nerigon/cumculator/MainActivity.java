@@ -1,4 +1,4 @@
-package com.example.cumculator;
+package com.nerigon.cumculator;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -22,10 +22,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-import java.time.temporal.ChronoUnit;
-import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     // Time Tracking
     private final Calendar calendar = Calendar.getInstance();
     private int theme = 0;
+
     private int selectedYear = calendar.get(Calendar.YEAR);
     private int selectedMonth = calendar.get(Calendar.MONTH);
     private int selectedDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -58,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         super.onCreate(savedInstanceState);
         prefs = getSharedPreferences("TimerPrefs", Context.MODE_PRIVATE);
+
+        String login = prefs.getString("login","0");
+        if(prefs.getString("login","0").equals("0")){
+            setContentView(R.layout.login_activity);
+            prefs.edit().putString("login","1").apply();
+        }
+        else{
         setContentView(R.layout.activity_main);
+
         new UpdateChecker(this).checkForUpdates();
         timeText = findViewById(R.id.timeText);
         monthDaysText = findViewById(R.id.monthDaysText);
@@ -76,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         dateButton.setOnClickListener(v -> showDatePicker());
         settingBtn.setOnClickListener(v -> openSettings());
         timeButton.setOnClickListener(v -> showTimePicker());
-        nowButton.setOnClickListener(v -> showResetConfirmation());
+        nowButton.setOnClickListener(v -> showResetConfirmation());}
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

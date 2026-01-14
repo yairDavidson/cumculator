@@ -1,10 +1,13 @@
-package com.example.cumculator
+package com.nerigon.cumculator
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import java.util.*
+import java.util.Calendar
 import kotlin.math.min
 
 class CircularTimerView @JvmOverloads constructor(

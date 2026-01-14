@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.cumculator"
+    namespace = "com.nerigon.cumculator"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.cumculator"
+        applicationId = "com.nerigon.cumculator"
         minSdk = 24
         targetSdk = 34
         versionCode = 8
@@ -21,6 +21,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
