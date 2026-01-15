@@ -145,7 +145,17 @@
                 app:layout_constraintEnd_toEndOf="@id/timeText"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
+    <ImageButton
+        android:id="@+id/LogOut"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="30dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/open_settings"
+        android:scaleType="centerCrop"
+        android:src="@drawable/outline_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="60dp"

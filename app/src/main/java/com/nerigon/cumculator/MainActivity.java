@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private Button timeButton;
     private Button nowButton;
     private ImageButton settingBtn;
+
+
+    private ImageButton logout;
+    private TextView loginAsGuestText;
     // Time Tracking
     private final Calendar calendar = Calendar.getInstance();
     private int theme = 0;
@@ -56,19 +61,21 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         super.onCreate(savedInstanceState);
-        prefs = getSharedPreferences("TimerPrefs", Context.MODE_PRIVATE);
 
-        String login = prefs.getString("login","0");
-        if(prefs.getString("login","0").equals("0")){
-            setContentView(R.layout.login_activity);
-            prefs.edit().putString("login","1").apply();
+        prefs = getSharedPreferences("TimerPrefs", MODE_PRIVATE);
+
+        if (prefs.getString("login", "0").equals("0")) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
         }
-        else{
+
         setContentView(R.layout.activity_main);
 
         new UpdateChecker(this).checkForUpdates();
+
+        logout = findViewById(R.id.LogOut);
         timeText = findViewById(R.id.timeText);
         monthDaysText = findViewById(R.id.monthDaysText);
         dateButton = findViewById(R.id.dateButton);
@@ -76,16 +83,18 @@ public class MainActivity extends AppCompatActivity {
         nowButton = findViewById(R.id.nowButton);
         settingBtn = findViewById(R.id.settingsButton);
 
-        initializeTime(); // get saved time, and if not exist reset to now
+        logout.setOnClickListener(v -> logout());
+
+        initializeTime();
         initalPrefernece();
         updateDateTimeButtons();
         updateStartTime();
         startTimer();
 
         dateButton.setOnClickListener(v -> showDatePicker());
-        settingBtn.setOnClickListener(v -> openSettings());
         timeButton.setOnClickListener(v -> showTimePicker());
-        nowButton.setOnClickListener(v -> showResetConfirmation());}
+        nowButton.setOnClickListener(v -> showResetConfirmation());
+        settingBtn.setOnClickListener(v -> openSettings());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -105,7 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 selectedDay
         ).show();
     }
-
+    private void logout() {
+        prefs.edit().putString("login","0").apply();
+        startActivity(new Intent(this, LoginActivity.class));
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showTimePicker() {
         new TimePickerDialog(
