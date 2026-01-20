@@ -1,5 +1,5 @@
 package com.nerigon.cumculator;
-
+//LoginActivity.java
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;

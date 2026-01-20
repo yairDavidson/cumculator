@@ -1,5 +1,5 @@
 package com.nerigon.cumculator;
-
+//User.java
 public class User {
     public String password;
     public long createdAt;
