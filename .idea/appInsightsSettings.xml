@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.nerigon.cumculator" />
+                  <option name="mobileSdkAppId" value="1:539954061254:android:c20bf97b03ed4b14cfdcc7" />
+                  <option name="projectId" value="button-switch" />
+                  <option name="projectNumber" value="539954061254" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

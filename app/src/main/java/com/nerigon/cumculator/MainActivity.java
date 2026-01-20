@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private Button nowButton;
     private ImageButton settingBtn;
 
-
     private ImageButton logout;
     private TextView loginAsGuestText;
     // Time Tracking
@@ -115,8 +114,17 @@ public class MainActivity extends AppCompatActivity {
         ).show();
     }
     private void logout() {
-        prefs.edit().putString("login","0").apply();
-        startActivity(new Intent(this, LoginActivity.class));
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            LoginActivity.logout(getSharedPreferences("UserPrefs", MODE_PRIVATE));
+            prefs.edit().putString("login","0").apply();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showTimePicker() {
@@ -134,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
                 true // true = 24-hour mode, false = 12-hour mode
         ).show();
     }
+    private void SyncData() {
+
+    }
+
     private void openSettings() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_settings, null);

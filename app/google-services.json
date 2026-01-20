@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "539954061254",
+    "firebase_url": "https://button-switch-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "button-switch",
+    "storage_bucket": "button-switch.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539954061254:android:c20bf97b03ed4b14cfdcc7",
+        "android_client_info": {
+          "package_name": "com.nerigon.cumculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANO0MzBHJxwnRNovBuGDXxZIdpRLg-2SQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

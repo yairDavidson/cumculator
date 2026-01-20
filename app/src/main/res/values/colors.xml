@@ -9,4 +9,9 @@
         <color name="chosen_option_color">#FF1976D2</color>      <!-- blue 700 -->
         <color name="outline">#44000000</color>               <!-- translucent black -->
         <color name="icons">#77000000</color>               <!-- translucent black -->
+        <color name="colorPrimary">#6200EE</color>
+        <color name="colorPrimaryDark">#3700B3</color>
+        <color name="colorAccent">#03DAC5</color>
+        <color name="outline2">#808080</color>
+
 </resources>

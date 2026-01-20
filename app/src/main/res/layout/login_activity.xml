@@ -72,6 +72,8 @@
             app:hintTextColor="?android:attr/textColorSecondary">
 
             <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/inputUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -96,6 +98,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -107,10 +110,12 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Login with username"
+            android:text="Login"
             android:textAllCaps="false"
             android:textSize="16sp"
-            app:cornerRadius="8dp"/>
+            app:cornerRadius="8dp"
+            android:enabled="false"
+            android:backgroundTint="?attr/colorPrimary"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
