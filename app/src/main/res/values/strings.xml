@@ -7,4 +7,6 @@
     <string name="yes">YES</string>
     <string name="cancel">CANCEL</string>
     <string name="open_settings">Open Settings</string>
+    <string name="sign_up">Don\'t have an account? Create one</string>
+
 </resources>

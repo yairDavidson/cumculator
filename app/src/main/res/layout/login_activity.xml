@@ -29,13 +29,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="packed"/>
 
+
         <TextView
             android:id="@+id/subtitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign in to continue"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textSize="16sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@id/titleText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +99,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputpassword"
+                android:id="@+id/inputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -138,7 +139,7 @@
                 android:id="@+id/createAccountText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create new account"
+                android:text="@string/sign_up"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
