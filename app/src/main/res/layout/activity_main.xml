@@ -88,7 +88,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/nowButton"
+            android:id="@+id/resetButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/timeText"
+                android:id="@+id/visualCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -140,13 +140,13 @@
                 android:text="0 months &amp; 0 days\n0 days total"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/timeText"
-                app:layout_constraintStart_toStartOf="@id/timeText"
-                app:layout_constraintEnd_toEndOf="@id/timeText"/>
+                app:layout_constraintTop_toBottomOf="@id/visualCounter"
+                app:layout_constraintStart_toStartOf="@id/visualCounter"
+                app:layout_constraintEnd_toEndOf="@id/visualCounter"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
     <ImageButton
-        android:id="@+id/LogOut"
+        android:id="@+id/logoutButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="30dp"
