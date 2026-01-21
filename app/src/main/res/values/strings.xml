@@ -8,5 +8,8 @@
     <string name="cancel">CANCEL</string>
     <string name="open_settings">Open Settings</string>
     <string name="sign_up">Don\'t have an account? Create one</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
 
 </resources>

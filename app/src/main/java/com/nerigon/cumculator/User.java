@@ -1,10 +1,13 @@
 package com.nerigon.cumculator;
+
+import java.util.List;
+
 //User.java
 public class User {
     public String password;
     public long createdAt;
     public int year, month, day, hour, minute, second;
-
+    public List<String> friends;
     public User() {} // Required for Firebase
 
     public User(String password) {
@@ -22,5 +25,13 @@ public class User {
         this.hour = h;
         this.minute = min;
         this.second = s;
+    }
+    public void addFriend(String username) {
+        if (!friends.contains(username)) {
+            friends.add(username);
+        }
+    }
+    public void removeFriend(String username) {
+        friends.remove(username);
     }
 }

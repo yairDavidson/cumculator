@@ -5,21 +5,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,25 +24,24 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
+
+    //private int THEME;//theme 0 = system default, 1 = dark, 2 = light
     private TextView V_Counter, V_MonthsAndDays; //00:00:00 + M & d Days
     private Button V_dateButton, V_timeButton, V_resetButton;
     private ImageButton V_settingBtn, V_logoutButton;
-    private int theme = 0;//theme 0 = system default, 1 = dark, 2 = light
     private int selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute, selectedSecond;
     private long millisOfStartPoint;
     private boolean isLoggingOut = false;
     private final Handler handler = new Handler(Looper.getMainLooper());
-    private SharedPreferences prefs;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = getSharedPreferences("TimerPrefs", MODE_PRIVATE);
 
         if (prefs.getString("login", "no_account").equals("no_account")) {
             startActivity(new Intent(this, LoginActivity.class));
@@ -65,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         startTimer();
         initialSetOnClickListeners();
     }
+
     //---------------used in OnCreate:
     private void LinkVisualComponents() {
         V_logoutButton = findViewById(R.id.logoutButton);
@@ -82,10 +77,6 @@ public class MainActivity extends AppCompatActivity {
         V_resetButton.setOnClickListener(v -> ResetConfirmationDialog());
         V_settingBtn.setOnClickListener(v -> openSettingsDialog());
     }//V
-    private void initialThemePreferenceFromLocal() {
-        theme = prefs.getInt("theme", 0);
-        getDelegate().setLocalNightMode(theme == 1 ? AppCompatDelegate.MODE_NIGHT_YES : (theme == 2 ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
-    }
     private void initialSelectedFromLocal() {
         Calendar c = Calendar.getInstance();
         selectedYear = prefs.getInt("year", c.get(Calendar.YEAR));
@@ -95,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         selectedMinute = prefs.getInt("minute", c.get(Calendar.MINUTE));
         selectedSecond = prefs.getInt("second", c.get(Calendar.SECOND));
     }
-
     private void executeSelectedTime() {
         //update pick time buttons:
         String[] months = getResources().getStringArray(R.array.months);
@@ -144,38 +134,6 @@ public class MainActivity extends AppCompatActivity {
         selectedMinute = c.get(Calendar.MINUTE);
         selectedSecond = c.get(Calendar.SECOND);
     }//selected time to now
-    private void openSettingsDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_settings, null);
-        AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
-        LinearLayout themeRow = view.findViewById(R.id.themeRow);
-        TextView themeValue = view.findViewById(R.id.themeValue);
-        Button btnApply = view.findViewById(R.id.btnApply);
-        Button btnCancel = view.findViewById(R.id.btnCANCEL);
-
-        themeValue.setText(theme == 0 ? "System default" : (theme == 1 ? "Dark" : "Light(nerd)"));
-        AtomicInteger newTheme = new AtomicInteger(theme);
-
-        themeRow.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(this, themeRow, Gravity.END);
-            popup.getMenu().add("System default");
-            popup.getMenu().add("Dark");
-            popup.getMenu().add("Light(nerd)");
-            popup.setOnMenuItemClickListener(item -> {
-                themeValue.setText(item.getTitle());
-                newTheme.set(Objects.equals(item.getTitle(), "Dark") ? 1 : (Objects.equals(item.getTitle(), "Light(nerd)") ? 2 : 0));
-                return true;
-            });
-            popup.show();
-        });
-        btnCancel.setOnClickListener(v -> dialog.dismiss());
-        btnApply.setOnClickListener(v -> {
-            theme = newTheme.get();
-            getDelegate().setLocalNightMode(theme == 1 ? AppCompatDelegate.MODE_NIGHT_YES : (theme == 2 ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
-            prefs.edit().putInt("theme", theme).apply();
-            dialog.dismiss();
-        });
-        dialog.show();
-    }
     private void logoutDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Logout")
@@ -183,11 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialog, which) -> {
                     // 1. Set flag so onPause doesn't save data back
                     isLoggingOut = true;
-
                     // 2. Wipe everything (login status, username, and local timer data)
-                    //theme = prefs.getInt("theme", 0);
                     prefs.edit().clear().apply();
-                    prefs.edit().putInt("theme", theme).apply();
+                    prefs.edit().putInt("THEME", THEME).apply();
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 })
@@ -207,18 +163,18 @@ public class MainActivity extends AppCompatActivity {
     }//V
     private void syncDataToCloud() {
 
-            String username = prefs.getString("username", null);
-            if (username != null) {
-                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(username);
-                Map<String, Object> updates = new HashMap<>();
-                updates.put("year", selectedYear);
-                updates.put("month", selectedMonth);
-                updates.put("day", selectedDay);
-                updates.put("hour", selectedHour);
-                updates.put("minute", selectedMinute);
-                updates.put("second", selectedSecond);
-                userRef.updateChildren(updates);
-            }
+        String username = prefs.getString("username", null);
+        if (username != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(username);
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("year", selectedYear);
+            updates.put("month", selectedMonth);
+            updates.put("day", selectedDay);
+            updates.put("hour", selectedHour);
+            updates.put("minute", selectedMinute);
+            updates.put("second", selectedSecond);
+            userRef.updateChildren(updates);
+        }
     }//V
     @Override
     protected void onPause() {
@@ -234,14 +190,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
     } //destroy handler and running process when activity is closed
-
     private String formatHoursDisplay(long millis) {
         long h = TimeUnit.MILLISECONDS.toHours(millis);
         long m = TimeUnit.MILLISECONDS.toMinutes(millis) % 60;
         long s = TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
         return String.format("%02d:%02d:%02d", h, m, s);
     }//convert millis to hours:minutes:seconds
-
     private String formatMonthDaysTime(long millis) {
         Calendar c = Calendar.getInstance();
         long totalDays = TimeUnit.MILLISECONDS.toDays(millis);
